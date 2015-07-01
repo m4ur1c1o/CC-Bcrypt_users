@@ -1,0 +1,7 @@
+<h1>Users</h1>
+<a href="/">Home</a>
+<% if @users%>
+	<% @users.each do |user| %>
+		<h2><a href="/users/<%=user.id%>"><%= user.email %></a></h2>
+	<% end %>
+<% end %>

@@ -1,4 +1,19 @@
-  <h1>Bienvenido a Sinatra!</h1>
-  <p>Este es un esqueleto de sinatra que armamos para ti</p>
+<h1>Users Web App</h1>
+<p>Welcome!</p>
 
   
+<h1>Log In</h1>
+<form action="/login" method="post">
+	Email:
+	<input type="text" name="email"><br><br>
+	Password:
+	<input type="password" name="password"><br><br>
+	<input type="submit" value="Submit">
+</form>
+<br>
+<a href="/users/new">Register</a>
+
+<% if session[:errors] %>
+	<p><%= session[:errors] %></p>
+	<% session[:errors] = nil %>
+<% end %>

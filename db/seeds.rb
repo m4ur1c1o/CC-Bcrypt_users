@@ -1,0 +1,1 @@
+User.create(email: "san", password_digest: "wero")

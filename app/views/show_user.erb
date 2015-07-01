@@ -1,0 +1,8 @@
+<h1><%= @user.email%></h1>
+<form action="/users/<%=@user.id%>/delete" method="post">
+	<input type="submit" name="delete" value="Delete">
+</form>
+<br>
+<a href="/users/<%=@user.id%>/edit">Edit</a>
+<a href="/users">Back to users</a>
+<a href="/">Log Out</a>
