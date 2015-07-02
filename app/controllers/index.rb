@@ -1,9 +1,18 @@
 get '/' do
   # La siguiente linea hace render de la vista 
   # que esta en app/views/index.erb
-  if session[:email]
-  	session.clear
+	@error = session[:errors]
+
+  if logged_in?
+	  @user = current_user
+  	erb :show_user
+  else
+  	erb :index
   end
 
-  erb :index
+  # if session[:email]
+  # 	session.clear
+  # end
+
+  # erb :index
 end

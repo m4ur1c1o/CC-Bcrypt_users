@@ -1,11 +1,36 @@
+get '/users/new' do
+	erb :new_user
+end
+
+# before '/users/' do
+# 	puts "la sesion es: #{session[:email]}"
+# 	if session[:email] == nil
+# 		puts "No existe una sesion"
+# 		session[:errors] = "no existe una sesion"
+# 		# @error = session[:error]
+# 		redirect to("/")
+# 	end
+# end
+
+before /users\/\d+/ do
+	puts "estamos en el before bueno"
+	if session[:email] == nil
+		puts "No existe una sesion"
+		session[:errors] = "no existe una sesion"
+		# @error = session[:error]
+		redirect to("/")
+	end
+end
+
+# before /^(?!\/(join|payment))/ do
+#   # ...
+# end
+
 get '/users' do
 	@users = User.all
 	erb :user
 end
 
-get '/users/new' do
-	erb :new_user
-end
 
 post '/users' do
 	email = params[:email]
@@ -42,7 +67,8 @@ end
 post '/users/:id/delete' do
 	id = params[:id]
 	user = User.destroy(id)
-	redirect to ('/users')
+	session.clear
+	redirect to ('/')
 end
 
 post '/login' do
@@ -51,19 +77,19 @@ post '/login' do
 	user = User.authenticate(email, password)
 	if user
 		id = user.id
-		puts "pasamos"
 		session[:email] = params[:email]
-		session[:id] = id
+		session[:user_id] = id
 		redirect to("/users/#{id}")		
 	else
 		session[:errors] = "Datos incorrectos"
-		# @errors = "Datos incorrectos"
 		erb :index
 	end
-
-
 end
 
+get '/logout' do
+	session.clear
+	redirect to('/')
+end
 
 
 
